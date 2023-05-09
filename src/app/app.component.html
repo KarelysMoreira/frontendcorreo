@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="abs-center">
+    <form [formGroup]="datos" (ngSubmit)="EnviarEmail()">
+      <div class="row justify-content-center fondo">
+        <h4 class="text-center">Enviar Correos</h4>
+
+        <div class="form-group">
+          <label for="para">Para</label>
+          <input type="email" class="form-control" formControlName="para" placeholder="example@gmail.com">
+        </div>
+        <div class="form-group">
+          <label for="asunto">Asunto</label>
+          <input type="text" class="form-control" formControlName="asunto">
+        </div>
+        <div class="form-group">
+          <label for="exampleTextarea">Mensaje</label>
+          <textarea class="form-control" formControlName="mensaje" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+          <input class="form-control" formControlName="archivo" type="file" id="formFile">
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Enviar</button>
+    </form>
+  </div>
+</div>
