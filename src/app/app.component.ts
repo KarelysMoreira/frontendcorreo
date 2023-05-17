@@ -14,35 +14,36 @@ export class AppComponent {
   UrlEmail: string = environment.UrlEmail;
   private FileTyp:any;
   constructor(public fb: FormBuilder,private httpclien:HttpClient){
-    this.datos=new FormGroup({
-      para: new FormControl('',[Validators.required,Validators.email]),
-      asunto: new FormControl('',Validators.required),
-      mensaje: new FormControl('',Validators.required),
-      archivo: new FormControl('')
+    this.datos=this.fb.group({
+      email:  [''],
+      asunto: [''],
+      mensaje: [''],
+     files: ['']
     })
   }
   EnviarEmail(){
     Notiflix.Loading.standard('Cargando...');
-    let params={
-      asunto:this.datos.value.asunto,
-      email:this.datos.value.para,
-      mensaje:this.datos.value.mensaje,
-      archivo:this.datos.value.archivo
-    }
+  const params= new FormData();
+      params.append('email',this.datos.value.email);
+      params.append('asunto', this.datos.value.asunto);
+      params.append('mensaje', this.datos.value.mensaje);
+      params.append('files',this.FileTyp.fileRaw, this.FileTyp.fileName);
+    
 
-    console.log(params)
-
-   this.httpclien.post(this.UrlEmail,params ).subscribe(resp=>{
+   this.httpclien.post<any>(this.UrlEmail,params ).subscribe(resp=>{
     console.log(resp)
     Notiflix.Loading.remove();
     Notiflix.Notify.success('Enviado Correctamente')
    })
   }
-  getfile($event :any):void{
-    const [file] = $event.target.files;
-   this.FileTyp={
-    fileRaw:file,
-   filName:file.name
-   }
+
+  getFile(event: any) {
+    const [file] =event.target.files;
+    this.FileTyp={
+      fileRaw:file,
+      fileName:file.name
+    }
+
   }
+  
 }

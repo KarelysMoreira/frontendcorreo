@@ -6,7 +6,7 @@
 
         <div class="form-group">
           <label for="para">Para</label>
-          <input type="email" class="form-control" formControlName="para" placeholder="example@gmail.com">
+          <input type="email" class="form-control" formControlName="email" placeholder="example@gmail.com">
         </div>
         <div class="form-group">
           <label for="asunto">Asunto</label>
@@ -17,7 +17,7 @@
           <textarea class="form-control" formControlName="mensaje" rows="3"></textarea>
         </div>
         <div class="mb-3">
-          <input class="form-control" formControlName="archivo" type="file" id="formFile">
+          <input (change)="getFile($event)" class="form-control" name="files" type="file" id="formFile">
         </div>
       </div>
       <button class="btn btn-primary" type="submit">Enviar</button>
